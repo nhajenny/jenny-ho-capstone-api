@@ -1,7 +1,6 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
-
-const knex = initKnex(configuration[process.env.NODE_ENV || "development"]);
+const knex = initKnex(configuration);
 
 // Get all comments for a specific festival - GET /api/festivals/:festivalId/comments
 export async function getCommentsByFestival(req, res) {

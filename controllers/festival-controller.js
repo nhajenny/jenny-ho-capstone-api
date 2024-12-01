@@ -1,34 +1,29 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
+const knex = initKnex(configuration);
 
-const knex = initKnex(configuration[process.env.NODE_ENV || "development"]);
-
-// Get all festivals - GET /api/festivals
-export async function getAllFestivals(req, res) {
-    console.log("Fetching all festivals...");
+// GET all festivals
+export const getAllFestivals = async (req, res) => {
     try {
-        const data = await knex("festival").select("*");
-        res.status(200).json(data);
+      const festivals = await knex("festival").select("*");
+      res.status(200).json(festivals);
     } catch (error) {
-        console.error("Error retrieving festivals:", error);
-        res.status(400).json({ message: `Error retrieving festivals` });
+      console.error("Error fetching festivals:", error);
+      res.status(500).json({ error: "Failed to fetch festivals" });
     }
-};
-
-// Get a festival by ID - GET /api/festivals/:id
-
-export async function getFestivalById(req, res) {
-    const festivalId = req.params.id;
+  };
+  
+  // GET a festival by ID
+  export const getFestivalById = async (req, res) => {
+    const { id } = req.params;
     try {
-        const festival = await knex("festival")
-            .where({ id: festivalId })
-            .first();
-        if (!festival) {
-            return res.status(404).json({ error: "Festival not found." });
-        }
-        res.status(200).json(festival);
-    } catch (err) {
-        console.error("Error fetching festival:", err);
-        res.status(500).json({ error: "Error retrieving festival by ID" });
+      const festival = await knex("festival").where({ id }).first();
+      if (!festival) {
+        return res.status(404).json({ error: "Festival not found" });
+      }
+      res.status(200).json(festival);
+    } catch (error) {
+      console.error("Error fetching festival:", error);
+      res.status(500).json({ error: "Failed to fetch festival" });
     }
-};
+  };
