@@ -1,16 +1,11 @@
 import express from "express";
-import { getAllHotels, getHotelById, getHotelsByFestival } from '../controllers/hotels-controller.js';
+import { getAllHotels, getHotelById, getHotelsByFestival } from "../controllers/hotels-controller.js";
 
 const router = express.Router();
 
-// Get all hotels
-router.get("/", getAllHotels);
-
-// Get hotels by festival ID
-router.get("/festivals/:festivalId/hotel", getHotelsByFestival)
-
-// Get a hotel by ID
-router.get("/:id", getHotelById);
-
+// Place specific routes before generic ones
+router.get("/festival/:festivalId", getHotelsByFestival); // Matches /api/hotels/festival/:festivalId
+router.get("/", getAllHotels); // Matches /api/hotels
+router.get("/:id", getHotelById); // Matches /api/hotels/:id
 
 export default router;

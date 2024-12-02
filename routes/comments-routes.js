@@ -1,15 +1,19 @@
 import express from "express";
-import { getCommentsByFestival, addComment, updateComment } from '../controllers/comments-controller.js';
+import {
+    getCommentsByFestival,
+    addComment,
+    updateComment,
+} from "../controllers/comments-controller.js";
 
 const router = express.Router();
 
 // Get all comments for a specific festival
-router.get("/:festivalId/comments", getCommentsByFestival);
+router.get("/festivals/:festivalId/comments", getCommentsByFestival);
 
 // Add a comment to a specific festival
-router.post("/:festivalId/comments", addComment);
+router.post("/festivals/:festivalId/comments", addComment);
 
-// Update a comment by ID for a specific festival
-router.put("/:festivalId/comments/:commentId", updateComment);
+// Update a specific comment by ID
+router.put("/festivals/:festivalId/comments/:commentId", updateComment);
 
 export default router;
