@@ -3,7 +3,8 @@ import { getAllTickets, getTicketById } from '../controllers/tickets-controller.
 
 const router = express.Router();
 
-router.get("/", getAllTickets); // Route for all tickets
-router.get("/:id", getTicketById); // Route for ticket by ID
+router.get("/", getAllTickets); 
+router.get("/festival/:festivalId/tickets", getTicketsByFestivalId);
+router.get("/:id", getTicketById); 
 
 export default router;

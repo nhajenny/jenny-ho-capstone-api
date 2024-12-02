@@ -6,10 +6,11 @@ const router = express.Router();
 // Get all hotels
 router.get("/", getAllHotels);
 
+// Get hotels by festival ID
+router.get("/festival/:festivalId", getHotelsByFestival)
+
 // Get a hotel by ID
 router.get("/:id", getHotelById);
 
-// Get hotels by festival ID
-router.get("/festival/:festivalId", getHotelsByFestival);
 
 export default router;
