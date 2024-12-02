@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", getAllHotels);
 
 // Get hotels by festival ID
-router.get("/festival/:festivalId", getHotelsByFestival)
+router.get("/festivals/:festivalId/hotel", getHotelsByFestival)
 
 // Get a hotel by ID
 router.get("/:id", getHotelById);
