@@ -6,12 +6,12 @@ const knex = initKnex(configuration);
 export async function getAllTips(req, res) {
     try {
         const tips = await knex("tips")
-            .join("festival", "tips.festival_id", "festival.id") // Join `tips` with `festival`
+            .join("festival", "tips.festival_id", "festival.id") 
             .select(
                 "tips.id",
                 "tips.festival_id",
                 "tips.name",
-                "tips.tips",
+                "tips.tip",
                 "tips.year_attended",
                 "festival.festival_name" 
             );
