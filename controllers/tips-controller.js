@@ -5,7 +5,16 @@ const knex = initKnex(configuration);
 // Get all tips - GET /api/tips
 export async function getAllTips(req, res) {
     try {
-        const tips = await knex("tips").select("*");
+        const tips = await knex("tips")
+            .join("festival", "tips.festival_id", "festival.id") // Join `tips` with `festival`
+            .select(
+                "tips.id",
+                "tips.festival_id",
+                "tips.name",
+                "tips.tips",
+                "tips.year_attended",
+                "festival.festival_name" 
+            );
         res.status(200).json(tips);
     } catch (error) {
         console.error("Error fetching tips:", error);
@@ -17,7 +26,18 @@ export async function getAllTips(req, res) {
 export async function getTipsByFestival(req, res) {
     const { festivalId } = req.params;
     try {
-        const tips = await knex("tips").where({ festival_id: festivalId });
+        const tips = await knex("tips")
+            .join("festival", "tips.festival_id", "festival.id")
+            .select(
+                "tips.id",
+                "tips.festival_id",
+                "tips.name",
+                "tips.tips",
+                "tips.year_attended",
+                "festival.festival_name"
+            )
+            .where({ "tips.festival_id": festivalId });
+        
         if (tips.length === 0) {
             return res.status(404).json({ error: "No tips found for this festival." });
         }
